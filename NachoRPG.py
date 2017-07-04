@@ -1,61 +1,50 @@
 #!/usr/bin/env python3
 import random
+from character import Character, PlayerCharacter
+#GOALS - Nomu's brain (AI moves)
+#GOALS - Accuracy
+#GOALS - Attack types
+#GOALS - Block
 
-races = {
-	"human" : {
-		"starting stats" : {
-			"str" : 10,
-			"agi" : 10,
-			"int" : 10,
-			"con" : 10,
-		}
-	},
-	"elf" : "",
-	"halfling" : "",
-	"goblin" : "",
-	"ogre" : "",
-}
+title_screen = """
+,---.   .--.   ____        _______   .---.  .---.     ,-----.    .-------.    .-------.   .-_'''-.    
+|    \  |  | .'  __ `.    /   __  \  |   |  |_ _|   .'  .-,  '.  |  _ _   \   \  _(`)_ \ '_( )_   \   
+|  ,  \ |  |/   '  \  \  | ,_/  \__) |   |  ( ' )  / ,-.|  \ _ \ | ( ' )  |   | (_ o._)||(_ o _)|  '  
+|  |\_ \|  ||___|  /  |,-./  )       |   '-(_{;}_);  \  '_ /  | :|(_ o _) /   |  (_,_) /. (_,_)/___|  
+|  _( )_\  |   _.-`   |\  '_ '`)     |      (_,_) |  _`,/ \ _/  || (_,_).' __ |   '-.-' |  |  .-----. 
+| (_ o _)  |.'   _    | > (_)  )  __ | _ _--.   | : (  '\_/ \   ;|  |\ \  |  ||   |     '  \  '-   .' 
+|  (_,_)\  ||  _( )_  |(  .  .-'_/  )|( ' ) |   |  \ `"/  \  ) / |  | \ `'   /|   |      \  `-'`   |  
+|  |    |  |\ (_ o _) / `-'`-'     / (_{;}_)|   |   '. \_/``".'  |  |  \    / /   )       \        /  
+'--'    '--' '.(_,_).'    `._____.'  '(_,_) '---'     '-----'    ''-'   `'-'  `---'        `'-...-'   
+                                                                                                      
+"""
+print(title_screen)
 
-	# Character Creation
-class Character(object):
-	def __init__(self, name, race, className):
-		self.name = name
-		self.race = race
-		self.className = className
-		self.stats = races[race]["starting stats"]
-		self.hp = self.stats["con"] * 1.5
-		self.mp = self.stats["int"] * 1.5
+player_name = input("Enter your name: ")
+character_name = input("Enter your hero's name: ")
 
+print("Welcome to the game %s" % (player_name))
 
-	def sayHello(self):
-		print("Hello, my name is %s! Nice to meet you." % (self.name))
-		print("Class : %s" % (self.className))
-		print("Race : %s" % (self.race))
-		print("Stats : %s" % (self.stats))
-		print("Current HP : %s" % (self.hp))
-		print("Current MP : %s" % (self.mp))
-
-	def attack(self, target):
-		# str vs target con = target reduced hp
-		my_str = self.stats["str"]
-		tar_con = target.stats["con"]
-		damage = (my_str + random.randint(1,6)) - tar_con
-		print("%s attacks %s. %s takes %d damage" % (self.name, target.name, target.name, damage))
-		target.takeDamage(damage)
-
-	def takeDamage(self, value):
-		self.hp = self.hp - value
-		print ("%s is at %d HP!"  % (self.name, self.hp))
-
-
-
-	# Moves
-	# Inventory
-
-hero = Character("Deku", "human", "hero")
+hero = PlayerCharacter(character_name, "human", "hero", player_name)
+hero.catch_phrase = "Go beyond! Plus Ultra!"
 hero.sayHello()
 
 villan = Character("Nomu", "human", "villan")
+villan.catch_phrase = "..."
 villan.sayHello()
 
-hero.attack(villan)
+while True:
+	if hero.hp > 0:
+		hero.choose_action(villan)
+	if villan.hp > 0:
+		villan.attack(hero)
+
+	if hero.hp <= 0 or villan.hp <= 0:
+		break
+
+if hero.hp > 0:
+	print("Hero wins!")
+if villan.hp > 0:
+	print("Evil wins!")
+
+
