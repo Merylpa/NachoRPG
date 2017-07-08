@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import random
-from character import Character, PlayerCharacter
-#GOALS - Nomu's brain (AI moves)
+from character import Character, PlayerCharacter, Enemy
 #GOALS - Accuracy
 #GOALS - Attack types
-#GOALS - Block
+#GOALS - Save file
+#GOALS - Colors for readability
 
 title_screen = """
 ,---.   .--.   ____        _______   .---.  .---.     ,-----.    .-------.    .-------.   .-_'''-.    
@@ -29,7 +29,7 @@ hero = PlayerCharacter(character_name, "human", "hero", player_name)
 hero.catch_phrase = "Go beyond! Plus Ultra!"
 hero.sayHello()
 
-villan = Character("Nomu", "human", "villan")
+villan = Enemy("Nomu", "human", "villan")
 villan.catch_phrase = "..."
 villan.sayHello()
 
@@ -37,7 +37,7 @@ while True:
 	if hero.hp > 0:
 		hero.choose_action(villan)
 	if villan.hp > 0:
-		villan.attack(hero)
+		villan.choose_action(hero)
 
 	if hero.hp <= 0 or villan.hp <= 0:
 		break

@@ -12,7 +12,8 @@
 	* consumables
 	* equipment 
 
-## Version 0.1 to dos
+## Version 0.2 to dos
 
-1. Character creation 
-2. fight a goblin
+1. Improve output readability (colors)
+2. Save files
+3. Improve character races

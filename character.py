@@ -22,10 +22,13 @@ class Character(object):
 		self.race = race
 		self.className = className
 		self.stats = races[race]["starting stats"]
+		self.max_hp = self.stats["con"] * 1.5
+		self.max_mp = self.stats["int"] * 1.5
 		self.hp = self.stats["con"] * 1.5
 		self.mp = self.stats["int"] * 1.5
 		self.catch_phrase = "Hello, my name is %s! Nice to meet you." % (self.name)
 		self.status = set()
+		self.actions = ["Attack", "Block"]
 
 	def sayHello(self):
 		print("%s says, \"%s\"" % (self.name, self.catch_phrase))
@@ -44,20 +47,40 @@ class Character(object):
 		my_str = self.stats["str"]
 		tar_con = target.stats["con"]
 		damage = (my_str + random.randint(1,6)) - tar_con
-		print("%s attacks %s. %s takes %d damage" % (self.name, target.name, target.name, damage))
+		print("%s attacks %s. for %d damage!" % (self.name, target.name, damage))
 		target.takeDamage(damage)
 
 	def takeDamage(self, value):
 		if "blocking" in self.status:
 			value = value // 2 
+			print ("%s is blocking, %s only takes %d damage!" % (self.name, self.name, value))
 		self.hp = self.hp - value
 		print ("%s is at %d HP!"  % (self.name, self.hp))
 
 	def block(self):
 		self.status.add("blocking")
+		print ("%s is blocking" % (self.name))
 
 
 
+class Enemy(Character):
+
+	def choose_action(self,target):
+		""" 
+		Randomly decides to attack or block
+		"""
+		if self.hp <= (self.max_hp / 2):
+			chance = 40 
+		else:
+			chance = 20
+
+		rand = random.randint(1,100)
+
+		if rand <= chance:
+			self.block()
+		else:
+			self.attack(target)
+	
 	# Moves
 	# Inventory
 
@@ -66,7 +89,6 @@ class PlayerCharacter(Character):
 	def __init__(self, name, race, className, player_name):
 		super().__init__(name, race, className)
 		self.player_name = player_name
-		self.actions = ["Attack", "Block"]
 
 	def choose_action(self, target):
 		"""
