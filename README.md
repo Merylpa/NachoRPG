@@ -14,6 +14,12 @@
 
 ## Version 0.2 to dos
 
-1. Improve output readability (colors)
-2. Save files
+1. ~~Improve output readability (colors)~~
+2. ~~Save files~~
 3. Improve character races
+4. ~~Reset character HP at end of match~~
+5. Experience points
+	* ~~basic implimentation~~ 
+	* Scaling
+6. Level ups
+	* ~~stat change~~
