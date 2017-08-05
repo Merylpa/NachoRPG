@@ -2,10 +2,9 @@
 import random
 import save_game
 from character import Character, PlayerCharacter, Enemy
+import races
 #GOALS - Accuracy
 #GOALS - Attack types
-#GOALS - Save file
-#GOALS - Colors for readability
 #GOALS - Crit chance
 
 title_screen = """
@@ -39,12 +38,12 @@ else:
 if new_game:
 	player_name = input("Enter your name: ")
 	character_name = input("Enter your hero's name: ")
-	hero = PlayerCharacter(character_name, "human", "hero", player_name, catch_phrase = "Go beyond! Plus Ultra!")
+	hero = PlayerCharacter(character_name, races.Human, "hero", player_name, catch_phrase = "Go beyond! Plus Ultra!")
 	hero.sayHello()
 
 print("Welcome to the game %s" % (hero.player_name))
 
-villan = Enemy("Nomu", "human", "villan", catch_phrase = "...")
+villan = Enemy("Nomu", races.Human, "villan", catch_phrase = "...")
 villan.sayHello()
 
 while True:
