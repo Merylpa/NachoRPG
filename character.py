@@ -1,30 +1,17 @@
 import random
 import fmt
-
-races = {
-	"human" : {
-		"starting stats" : {
-			"str" : 10,
-			"agi" : 10,
-			"int" : 10,
-			"con" : 10,
-		}
-	},
-	"elf" : "",
-	"halfling" : "",
-	"goblin" : "",
-	"ogre" : "",
-}
+import races
+from races import Stats
 
 	# Character Creation
 class Character(object):
-	def __init__(self, name, race, className, catch_phrase=None):
+	def __init__(self, name, Race, className, catch_phrase=None):
 		self.name = name
-		self.race = race
+		self.race = Race()
 		self.className = className
-		self.stats = races[race]["starting stats"]
-		self.max_hp = self.stats["con"] * 1.5
-		self.max_mp = self.stats["int"] * 1.5
+		self.stats = self.race.starting_stats
+		self.max_hp = self.stats.con * 1.5
+		self.max_mp = self.stats.int * 1.5
 		self.hp = self.max_hp
 		self.mp = self.max_mp
 
@@ -53,19 +40,17 @@ Character Sheet
 Character Name: {s.name}
 Race          : {s.race}
 Class         : {s.className}
-Strength      : {s.stats[str]}
-Agility       : {s.stats[agi]}
-Intelligence  : {s.stats[int]}
-Constitution  : {s.stats[con]}
+Strength      : {s.stats.str}
+Agility       : {s.stats.agi}
+Intelligence  : {s.stats.int}
+Constitution  : {s.stats.con}
 #################
 """.format(s=self))
 
 	def attack(self, target):
 		self.status.discard("blocking")
 		# str vs target con = target reduced hp
-		my_str = self.stats["str"]
-		tar_con = target.stats["con"]
-		damage = (my_str + random.randint(1,6)) - tar_con
+		damage = (self.stats.str + random.randint(1,6)) - target.stats.con
 
 		msg = fmt.yellow("%s attacks %s. for %d damage!" % (self.name, target.name, damage))
 		print(msg)
@@ -124,16 +109,16 @@ Select stat to increase
 				break
 				
 			if user_input == 1:
-				self.stats["str"] += 1
+				self.stats.str += 1
 				self.attr_points -= 1
 			elif user_input == 2:
-				self.stats["agi"] += 1
+				self.stats.agi += 1
 				self.attr_points -= 1
 			elif user_input == 3:
-				self.stats["int"] += 1
+				self.stats.int += 1
 				self.attr_points -= 1
 			elif user_input == 4:
-				self.stats["con"] += 1
+				self.stats.con += 1
 				self.attr_points -= 1
 			else:
 				break
