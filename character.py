@@ -7,7 +7,7 @@ from races import Stats
 class Character(object):
 	def __init__(self, name, Race, className, catch_phrase=None):
 		self.name = name
-		self.race = Race()
+		self.race = Race
 		self.className = className
 		self.stats = self.race.starting_stats
 		self.max_hp = self.stats.con * 1.5
