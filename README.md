@@ -35,4 +35,4 @@
 
 ###Bugs
 
-1. Nomu doing negative damage when Deku is higher level
+1. ~~Nomu doing negative damage when Deku is higher level~~

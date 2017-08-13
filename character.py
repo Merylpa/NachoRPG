@@ -52,6 +52,9 @@ Constitution  : {s.stats.con}
 		# str vs target con = target reduced hp
 		damage = (self.stats.str + random.randint(1,6)) - target.stats.con
 
+		damage = damage if damage > 1 else 1
+		# prevents negative damage
+
 		msg = fmt.yellow("%s attacks %s. for %d damage!" % (self.name, target.name, damage))
 		print(msg)
 
