@@ -30,7 +30,7 @@
 9. Improve Game Loop
 	* ~~Contiue playing~~
 10. Improve character creation
-	* choose race/class/ect
+	* choose race/class(job)/ect
 11. Randomly generate monesters
 	* NPC level ups
 	* Suggest points based on race and class

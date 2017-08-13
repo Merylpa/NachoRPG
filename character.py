@@ -5,10 +5,10 @@ from races import Stats
 
 	# Character Creation
 class Character(object):
-	def __init__(self, name, Race, className, catch_phrase=None):
+	def __init__(self, name, Race, job, catch_phrase=None):
 		self.name = name
 		self.race = Race
-		self.className = className
+		self.job = job
 		self.stats = self.race.starting_stats
 		self.max_hp = self.stats.con * 1.5
 		self.max_mp = self.stats.int * 1.5
@@ -39,7 +39,7 @@ Character Sheet
 #################
 Character Name: {s.name}
 Race          : {s.race}
-Class         : {s.className}
+Class         : {s.job}
 Strength      : {s.stats.str}
 Agility       : {s.stats.agi}
 Intelligence  : {s.stats.int}
@@ -160,8 +160,8 @@ class Enemy(Character):
 
 class PlayerCharacter(Character):
 
-	def __init__(self, name, race, className, player_name, catch_phrase=None):
-		super().__init__(name, race, className, catch_phrase=catch_phrase)
+	def __init__(self, name, race, job, player_name, catch_phrase=None):
+		super().__init__(name, race, job, catch_phrase=catch_phrase)
 		self.player_name = player_name
 
 	def choose_action(self, target):
