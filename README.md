@@ -28,10 +28,13 @@
 8. Classes and Abilities
 	* Racial Abilities
 9. Improve Game Loop
-	* Contiue playing
-	* generate random monsters
+	* ~~Contiue playing~~
 10. Improve character creation
 	* choose race/class/ect
+11. Randomly generate monesters
+	* NPC level ups
+	* Suggest points based on race and class
+	* Blocked by class implementaion 
 
 ###Bugs
 

@@ -3,6 +3,7 @@ import random
 import save_game
 from character import Character, PlayerCharacter, Enemy
 import races
+import fmt
 #GOALS - Accuracy
 #GOALS - Attack types
 #GOALS - Crit chance
@@ -44,32 +45,39 @@ if new_game:
 print("Welcome to the game %s" % (hero.player_name))
 
 villan = Enemy("Nomu", races.Human, "villan", catch_phrase = "...")
-villan.sayHello()
 
 while True:
+	
+	villan.sayHello()
+
+	while True:
+		if hero.hp > 0:
+			hero.choose_action(villan)
+		if villan.hp > 0:
+			villan.choose_action(hero)
+
+		if hero.hp <= 0 or villan.hp <= 0:
+			break
+
 	if hero.hp > 0:
-		hero.choose_action(villan)
+		print("Hero wins!")
+		hero.combatExperience(villan)
 	if villan.hp > 0:
-		villan.choose_action(hero)
+		print("Evil wins!")
+		villan.combatExperience(hero)
+	# Reset character HP
+	hero.hpReset()
+	villan.hpReset()
 
-	if hero.hp <= 0 or villan.hp <= 0:
+	choice = input("Would you like to see your character sheet? y/n \n")
+	if "y" in choice.lower():
+		hero.printCharacterSheet()
+
+	choice = input("Would you like to save your game? y/n \n")
+	if "y" in choice.lower():
+		filename = "{}_{}.save".format(hero.player_name, hero.name)
+		save_game.create_save(hero, filename)
+
+	choice = input(fmt.blue("Would you like to continue (y/n) \n"))
+	if "n" in choice.lower():
 		break
-
-if hero.hp > 0:
-	print("Hero wins!")
-	hero.combatExperience(villan)
-if villan.hp > 0:
-	print("Evil wins!")
-	villan.combatExperience(hero)
-# Reset character HP
-hero.hpReset()
-
-choice = input("Would you like to see your character sheet? y/n \n")
-if "y" in choice.lower():
-	hero.printCharacterSheet()
-
-choice = input("Would you like to save your game? y/n \n")
-if "y" in choice.lower():
-	filename = "{}_{}.save".format(hero.player_name, hero.name)
-	save_game.create_save(hero, filename)
-
